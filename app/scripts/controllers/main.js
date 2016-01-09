@@ -8,10 +8,34 @@
  * Controller of the angularTodoApp
  */
 angular.module('angularTodoApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
+  .controller('MainCtrl', ['$scope', function ($scope) {
+    
+    $scope.tasks = [
+		{
+			todo: 'Finish the app',
+			done: false
+		},
+		{
+			todo: 'Wash clothes',
+			done: true
+		}
     ];
-  });
+    
+    $scope.toggleTask = function(index) {
+		$scope.tasks[index].done = !$scope.tasks[index].done;
+	};
+	
+	$scope.removeTask = function(index) {
+		$scope.tasks.splice(index, 1);
+	};
+	
+	$scope.addTask = function() {
+		var newTask = {
+			todo: $('#newTask').val(),
+			done: false
+		};
+		
+		$scope.tasks.push(newTask);
+	};
+    
+  }]);
