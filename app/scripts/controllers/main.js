@@ -8,18 +8,9 @@
  * Controller of the angularTodoApp
  */
 angular.module('angularTodoApp')
-  .controller('MainCtrl', ['$scope', function ($scope) {
+  .controller('MainCtrl', ['$scope', 'taskFactory', function ($scope, taskFactory) {
     
-    $scope.tasks = [
-		{
-			todo: 'Finish the app',
-			done: false
-		},
-		{
-			todo: 'Wash clothes',
-			done: true
-		}
-    ];
+    $scope.tasks = taskFactory.getTasks() || [];
     
     $scope.toggleTask = function(index) {
 		$scope.tasks[index].done = !$scope.tasks[index].done;
@@ -37,5 +28,9 @@ angular.module('angularTodoApp')
 		
 		$scope.tasks.push(newTask);
 	};
+	
+	$scope.$watch('tasks', function() {
+		taskFactory.setTasks($scope.tasks);
+	}, true);
     
   }]);

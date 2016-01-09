@@ -15,8 +15,12 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'LocalStorageModule'
   ])
+  .config(['localStorageServiceProvider', function(localStorage) {
+	  localStorage.setPrefix('ang-todo');
+  }])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
